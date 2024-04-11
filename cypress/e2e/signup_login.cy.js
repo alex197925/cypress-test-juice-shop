@@ -5,7 +5,7 @@ describe("Signup & Login", () => {
   let randomString = Math.random().toString(36).substring(7);
   let randomPassword = Math.random() * 10;
   let randomEmail = "auto_" + randomString + "@gmail.com";
-  const securityAnswer = "Hello World";
+  const securityAnswer = "Hello world";
 
   it("Validate signup", () => {
     cy.visit("http://localhost:3000/#/");

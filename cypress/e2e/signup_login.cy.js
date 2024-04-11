@@ -7,11 +7,16 @@ describe("Signup & Login", () => {
   let email = "auto_" + randomString + "@gmail.com";
   const securityAnswer = "Hello world";
 
-  it("Validate signup", () => {
+  beforeEach(() => {
+    cy.log("Email: " + email);
+    cy.log("Password: " + password);
     cy.visit("http://localhost:3000/#/");
     cy.get(".cdk-overlay-backdrop").click(-50, -50, { force: true });
     cy.get("button").contains("Account").click();
     cy.get("#navbarLoginButton").contains("Login").click();
+  });
+
+  it("Validate signup", () => {
     cy.get("#newCustomerLink > .primary-link")
       .contains("Not yet a customer?")
       .click({ force: true });
@@ -31,10 +36,9 @@ describe("Signup & Login", () => {
     );
   });
   it("Validate login user in to account", () => {
-    cy.get("button").contains("Account").click();
-    cy.get("#navbarLoginButton").contains("Login").click();
     cy.get("#email").type(email);
     cy.get("#password").type(password);
     cy.get("#loginButton").click();
+    cy.get(".fa-layers-counter").contains(0);
   });
 });

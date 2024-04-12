@@ -1,6 +1,7 @@
 /** @format */
 
 /// <reference types="cypress" />
+
 describe("Signup & Login", () => {
   let randomString = Math.random().toString(36).substring(7);
   let password = Math.random() * 10;
@@ -40,5 +41,17 @@ describe("Signup & Login", () => {
     cy.get("#password").type(password);
     cy.get("#loginButton").click();
     cy.get(".fa-layers-counter").contains(0);
+  });
+  it("Validate Login", () => {
+    cy.request({
+      method: "POST",
+      url: "**/login",
+      body: {
+        email: email,
+        password: password,
+      },
+    }).should((response) => {
+      expect(response.status).eq(200);
+    });
   });
 });
